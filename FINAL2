@@ -1,0 +1,610 @@
+1. ระบบจัดการธนาคาร (Bank Account Management)
+โจทย์: ให้สร้างคลาส BankAccount ที่มีคุณสมบัติสำหรับฝากเงิน ถอนเงิน และตรวจสอบยอดคงเหลือ โดยต้องใช้ Encapsulation และรองรับบัญชีประเภทต่าง ๆ เช่น บัญชีออมทรัพย์ และบัญชีกระแสรายวัน
+class BankAccount {
+    private String accountNumber;
+    private double balance;
+
+    public BankAccount(String accountNumber, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) balance += amount;
+    }
+
+    public boolean withdraw(double amount) {
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+}
+
+class FinalExam1 {
+    public static void main(String[] args) {
+        BankAccount acc = new BankAccount("123456789", 5000);
+        acc.deposit(1500);
+        acc.withdraw(2000);
+        System.out.println("Balance: " + acc.getBalance());
+    }
+}
+
+2. ระบบการจองโรงแรม (Hotel Booking System)
+โจทย์: ให้สร้างระบบที่สามารถจองห้องพักได้ โดยมีข้อมูลห้องพัก (Room) และสามารถตรวจสอบสถานะห้องว่าว่างหรือไม่
+class Room {
+    private int roomNumber;
+    private boolean isBooked;
+
+    public Room(int roomNumber) {
+        this.roomNumber = roomNumber;
+        this.isBooked = false;
+    }
+
+    public boolean bookRoom() {
+        if (!isBooked) {
+            isBooked = true;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean cancelBooking() {
+        if (isBooked) {
+            isBooked = false;
+            return true;
+        }
+        return false;
+    }
+
+    public String getStatus() {
+        return isBooked ? "Booked" : "Available";
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+}
+
+class FinalExam2 {
+    public static void main(String[] args) {
+        Room room101 = new Room(101);
+        System.out.println("Room 101 Status: " + room101.getStatus());
+        room101.bookRoom();
+        System.out.println("Room 101 Status after booking: " + room101.getStatus());
+    }
+}
+
+ระบบจัดการพนักงาน (Employee Management)
+โจทย์: ให้สร้างคลาส Employee ที่สามารถจัดเก็บข้อมูลพนักงาน เช่น ชื่อ, เงินเดือน และสามารถคำนวณโบนัสได้ (โบนัสคิดเป็น 10% ของเงินเดือน)
+class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public double calculateBonus() {
+        return salary * 0.1;
+    }
+
+    public void displayInfo() {
+        System.out.println("Employee: " + name);
+        System.out.println("Salary: $" + salary);
+        System.out.println("Bonus: $" + calculateBonus());
+    }
+}
+
+class FinalExam3 {
+    public static void main(String[] args) {
+        Employee emp = new Employee("John Doe", 50000);
+        emp.displayInfo();
+    }
+}
+
+ระบบเช่ารถ (Car Rental System)
+โจทย์: ให้สร้างคลาส CarRental ที่สามารถจัดการข้อมูลการเช่ารถ เช่น การเช่ารถ การคืนรถ และคำนวณค่าเช่า
+class Car {
+    private String licensePlate;
+    private boolean isRented;
+    private double dailyRate;
+
+    public Car(String licensePlate, double dailyRate) {
+        this.licensePlate = licensePlate;
+        this.dailyRate = dailyRate;
+        this.isRented = false;
+    }
+
+    public boolean rentCar() {
+        if (!isRented) {
+            isRented = true;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean returnCar() {
+        if (isRented) {
+            isRented = false;
+            return true;
+        }
+        return false;
+    }
+
+    public double calculateRentalCost(int days) {
+        return days * dailyRate;
+    }
+
+    public String getStatus() {
+        return isRented ? "Rented" : "Available";
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+}
+
+class FinalExam5 {
+    public static void main(String[] args) {
+        Car car1 = new Car("AB1234", 50);
+        System.out.println("Car " + car1.getLicensePlate() + " Status: " + car1.getStatus());
+        car1.rentCar();
+        System.out.println("Car " + car1.getLicensePlate() + " Status after renting: " + car1.getStatus());
+        System.out.println("Rental Cost for 3 days: $" + car1.calculateRentalCost(3));
+    }
+}
+
+
+ระบบจัดการร้านค้าออนไลน์ (E-Commerce System with Inventory Management)
+โจทย์:
+ให้เขียนโปรแกรมจำลองระบบร้านค้าออนไลน์ ที่สามารถทำสิ่งต่อไปนี้:
+
+เพิ่มสินค้าเข้าสู่ระบบ (สินค้าแต่ละชิ้นมี ชื่อ, ราคา, และจำนวนคงเหลือ)
+
+แสดงสินค้าทั้งหมดในรูปแบบตาราง
+
+ทำรายการสั่งซื้อสินค้า (ลดจำนวนคงเหลือเมื่อลูกค้าซื้อสินค้า)
+
+ตรวจสอบว่ามีสินค้าพอสำหรับสั่งซื้อหรือไม่
+
+import java.util.*;
+
+class Product {
+    private String name;
+    private double price;
+    private int stock;
+
+    public Product(String name, double price, int stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
+
+    public boolean purchase(int quantity) {
+        if (quantity <= stock) {
+            stock -= quantity;
+            return true;
+        }
+        return false;
+    }
+
+    public void display() {
+        System.out.printf("| %-15s | %-8.2f | %-6d |\n", name, price, stock);
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+class ECommerceSystem {
+    private static List<Product> inventory = new ArrayList<>();
+
+    public static void main(String[] args) {
+        inventory.add(new Product("Laptop", 1200.99, 5));
+        inventory.add(new Product("Smartphone", 899.50, 10));
+        inventory.add(new Product("Headphones", 199.99, 15));
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n1. Show Products\n2. Purchase Product\n3. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    showInventory();
+                    break;
+                case 2:
+                    purchaseProduct(scanner);
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
+    }
+
+    private static void showInventory() {
+        System.out.println("+-----------------+----------+--------+");
+        System.out.println("| Product        | Price    | Stock  |");
+        System.out.println("+-----------------+----------+--------+");
+        for (Product p : inventory) p.display();
+        System.out.println("+-----------------+----------+--------+");
+    }
+
+    private static void purchaseProduct(Scanner scanner) {
+        System.out.print("Enter product name: ");
+        String name = scanner.next();
+        System.out.print("Enter quantity: ");
+        int qty = scanner.nextInt();
+
+        for (Product p : inventory) {
+            if (p.getName().equalsIgnoreCase(name)) {
+                if (p.purchase(qty)) {
+                    System.out.println("Purchase successful!");
+                } else {
+                    System.out.println("Not enough stock available.");
+                }
+                return;
+            }
+        }
+        System.out.println("Product not found!");
+    }
+}
+
+ระบบร้านค้าออนไลน์ (E-Commerce System with Inventory Management)
+import java.util.*;
+
+class Product {
+    private String name;
+    private double price;
+    private int stock;
+
+    public Product(String name, double price, int stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
+
+    public boolean purchase(int quantity) {
+        if (quantity <= stock) {
+            stock -= quantity;
+            return true;
+        }
+        return false;
+    }
+
+    public void display() {
+        System.out.printf("| %-15s | %-8.2f | %-6d |\n", name, price, stock);
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+class ECommerceSystem {
+    private static List<Product> inventory = new ArrayList<>();
+
+    public static void main(String[] args) {
+        inventory.add(new Product("Laptop", 1200.99, 5));
+        inventory.add(new Product("Smartphone", 899.50, 10));
+        inventory.add(new Product("Headphones", 199.99, 15));
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n1. Show Products\n2. Purchase Product\n3. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    showInventory();
+                    break;
+                case 2:
+                    purchaseProduct(scanner);
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
+    }
+
+    private static void showInventory() {
+        System.out.println("+-----------------+----------+--------+");
+        System.out.println("| Product        | Price    | Stock  |");
+        System.out.println("+-----------------+----------+--------+");
+        for (Product p : inventory) p.display();
+        System.out.println("+-----------------+----------+--------+");
+    }
+
+    private static void purchaseProduct(Scanner scanner) {
+        System.out.print("Enter product name: ");
+        String name = scanner.next();
+        System.out.print("Enter quantity: ");
+        int qty = scanner.nextInt();
+
+        for (Product p : inventory) {
+            if (p.getName().equalsIgnoreCase(name)) {
+                if (p.purchase(qty)) {
+                    System.out.println("Purchase successful!");
+                } else {
+                    System.out.println("Not enough stock available.");
+                }
+                return;
+            }
+        }
+        System.out.println("Product not found!");
+    }
+}
+
+ระบบพนักงาน (Employee Management System)
+import java.util.*;
+
+class Employee {
+    private String id, name, position;
+    private double salary;
+
+    public Employee(String id, String name, String position, double salary) {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        this.salary = salary;
+    }
+
+    public void display() {
+        System.out.printf("| %-10s | %-15s | %-12s | %-10.2f |\n", id, name, position, salary);
+    }
+}
+
+class EmployeeSystem {
+    public static void main(String[] args) {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("E001", "Alice", "Manager", 75000));
+        employees.add(new Employee("E002", "Bob", "Developer", 60000));
+        employees.add(new Employee("E003", "Charlie", "HR", 50000));
+
+        System.out.println("+------------+-----------------+--------------+------------+");
+        System.out.println("| Employee ID | Name           | Position     | Salary     |");
+        System.out.println("+------------+-----------------+--------------+------------+");
+        for (Employee emp : employees) emp.display();
+        System.out.println("+------------+-----------------+--------------+------------+");
+    }
+}
+
+ระบบธนาคาร (Bank Account System)
+import java.util.*;
+
+class BankAccount {
+    private String accNumber;
+    private String accHolder;
+    private double balance;
+
+    public BankAccount(String accNumber, String accHolder, double balance) {
+        this.accNumber = accNumber;
+        this.accHolder = accHolder;
+        this.balance = balance;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposit Successful! New Balance: " + balance);
+    }
+
+    public void withdraw(double amount) {
+        if (amount > balance) {
+            System.out.println("Insufficient balance!");
+        } else {
+            balance -= amount;
+            System.out.println("Withdraw Successful! New Balance: " + balance);
+        }
+    }
+
+    public void display() {
+        System.out.printf("| %-12s | %-15s | %-10.2f |\n", accNumber, accHolder, balance);
+    }
+}
+
+class BankSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        BankAccount account = new BankAccount("123456789", "John Doe", 10000);
+
+        while (true) {
+            System.out.println("\n1. Show Account\n2. Deposit\n3. Withdraw\n4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("+--------------+-----------------+------------+");
+                    System.out.println("| Account No   | Account Holder  | Balance    |");
+                    System.out.println("+--------------+-----------------+------------+");
+                    account.display();
+                    System.out.println("+--------------+-----------------+------------+");
+                    break;
+                case 2:
+                    System.out.print("Enter deposit amount: ");
+                    account.deposit(scanner.nextDouble());
+                    break;
+                case 3:
+                    System.out.print("Enter withdrawal amount: ");
+                    account.withdraw(scanner.nextDouble());
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
+    }
+}
+
+ระบบจองโรงแรม (Hotel Reservation System)
+import java.util.*;
+
+class Room {
+    private int roomNumber;
+    private boolean isBooked;
+
+    public Room(int roomNumber) {
+        this.roomNumber = roomNumber;
+        this.isBooked = false;
+    }
+
+    public boolean bookRoom() {
+        if (!isBooked) {
+            isBooked = true;
+            return true;
+        }
+        return false;
+    }
+
+    public void display() {
+        System.out.printf("| %-12d | %-10s |\n", roomNumber, isBooked ? "Booked" : "Available");
+    }
+}
+
+class HotelSystem {
+    public static void main(String[] args) {
+        List<Room> rooms = new ArrayList<>();
+        for (int i = 101; i <= 105; i++) {
+            rooms.add(new Room(i));
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n1. Show Rooms\n2. Book Room\n3. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("+--------------+------------+");
+                    System.out.println("| Room Number  | Status     |");
+                    System.out.println("+--------------+------------+");
+                    for (Room room : rooms) room.display();
+                    System.out.println("+--------------+------------+");
+                    break;
+                case 2:
+                    System.out.print("Enter room number to book: ");
+                    int roomNumber = scanner.nextInt();
+                    boolean found = false;
+                    for (Room room : rooms) {
+                        if (roomNumber == roomNumber && room.bookRoom()) {
+                            System.out.println("Room booked successfully!");
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) System.out.println("Room not available!");
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
+    }
+}
+
+ระบบเช็คสต๊อกโกดังสินค้า (Warehouse Inventory System)
+import java.util.*;
+
+class Inventory {
+    private String itemName;
+    private int quantity;
+
+    public Inventory(String itemName, int quantity) {
+        this.itemName = itemName;
+        this.quantity = quantity;
+    }
+
+    public void addStock(int amount) {
+        quantity += amount;
+    }
+
+    public boolean removeStock(int amount) {
+        if (amount <= quantity) {
+            quantity -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public void display() {
+        System.out.printf("| %-15s | %-10d |\n", itemName, quantity);
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+}
+
+class WarehouseSystem {
+    public static void main(String[] args) {
+        List<Inventory> inventoryList = new ArrayList<>();
+        inventoryList.add(new Inventory("Laptop", 20));
+        inventoryList.add(new Inventory("Monitor", 15));
+        inventoryList.add(new Inventory("Keyboard", 30));
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n1. Show Inventory\n2. Add Stock\n3. Remove Stock\n4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("+-----------------+------------+");
+                    System.out.println("| Item Name      | Quantity   |");
+                    System.out.println("+-----------------+------------+");
+                    for (Inventory item : inventoryList) item.display();
+                    System.out.println("+-----------------+------------+");
+                    break;
+                case 2:
+                    System.out.print("Enter item name: ");
+                    String name = scanner.next();
+                    System.out.print("Enter quantity to add: ");
+                    int addQty = scanner.nextInt();
+                    for (Inventory item : inventoryList) {
+                        if (item.getItemName().equalsIgnoreCase(name)) {
+                            item.addStock(addQty);
+                            System.out.println("Stock updated!");
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter item name: ");
+                    name = scanner.next();
+                    System.out.print("Enter quantity to remove: ");
+                    int removeQty = scanner.nextInt();
+                    for (Inventory item : inventoryList) {
+                        if (item.getItemName().equalsIgnoreCase(name) && item.removeStock(removeQty)) {
+                            System.out.println("Stock removed!");
+                        }
+                    }
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
+    }
+}
