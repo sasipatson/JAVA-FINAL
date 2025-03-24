@@ -1,0 +1,155 @@
+import java.util.*;
+
+// Question 1: Generate random grades and display in table format
+public class GradeTable {
+    public static void main(String[] args) {
+        Random rand = new Random();
+        int numStudents = 10;
+        System.out.println("+------------+--------+------+-----------+");
+        System.out.println("| Student    | Score  | Grade | Remark    |");
+        System.out.println("+------------+--------+------+-----------+");
+        for (int i = 1; i <= numStudents; i++) {
+            int score = rand.nextInt(101);
+            String grade = getGrade(score);
+            String remark = getRemark(grade);
+            System.out.printf("| %-10s | %-6d | %-4s | %-9s |
+", "Student" + i, score, grade, remark);
+        }
+        System.out.println("+------------+--------+------+-----------+");
+    }
+
+    public static String getGrade(int score) {
+        if (score >= 80) return "A";
+        else if (score >= 70) return "B";
+        else if (score >= 60) return "C";
+        else if (score >= 50) return "D";
+        else return "F";
+    }
+    
+    public static String getRemark(String grade) {
+        switch (grade) {
+            case "A": return "Excellent";
+            case "B": return "Very Good";
+            case "C": return "Average";
+            case "D": return "Needs Improvement";
+            default: return "Fail";
+        }
+    }
+}
+
+// Question 2: Calculate item price with VAT 7% and discount in table format
+class CafeBilling {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter item price: ");
+        double price = scanner.nextDouble();
+        double discount = (price > 500) ? price * 0.1 : 0;
+        double netPrice = price - discount;
+        double vat = netPrice * 0.07;
+        double total = netPrice + vat;
+        
+        System.out.println("+------------+------------+------------+------------+");
+        System.out.println("| Base Price | Discount   | VAT 7%     | Total Price|");
+        System.out.println("+------------+------------+------------+------------+");
+        System.out.printf("| %-10.2f | %-10.2f | %-10.2f | %-10.2f |
+", price, discount, vat, total);
+        System.out.println("+------------+------------+------------+------------+");
+    }
+}
+
+// Question 3: Calculate employee salary and commission in table format
+class EmployeeSalary {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter base salary: ");
+        double baseSalary = scanner.nextDouble();
+        System.out.print("Enter total sales: ");
+        double sales = scanner.nextDouble();
+        double commissionRate = (sales > 100000) ? 10 : 5;
+        double commission = sales * (commissionRate / 100);
+        double bonus = (sales > 200000) ? 5000 : 0;
+        double totalSalary = baseSalary + commission + bonus;
+        
+        System.out.println("+------------+------------+------------+------------+");
+        System.out.println("| Base Salary| Commission | Bonus      | Total Pay  |");
+        System.out.println("+------------+------------+------------+------------+");
+        System.out.printf("| %-10.2f | %-10.2f | %-10.2f | %-10.2f |
+", baseSalary, commission, bonus, totalSalary);
+        System.out.println("+------------+------------+------------+------------+");
+    }
+}
+
+// Question 4: Using Composition and Encapsulation
+class Author {
+    private String name, email;
+    public Author(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+    public String getDetails() {
+        return name + " (" + email + ")";
+    }
+}
+class Book {
+    private String title;
+    private double price;
+    private Author author;
+    public Book(String title, double price, Author author) {
+        this.title = title;
+        this.price = price;
+        this.author = author;
+    }
+    public void display() {
+        System.out.println("Book Title: " + title);
+        System.out.println("Book Price: " + price);
+        System.out.println("Author: " + author.getDetails());
+    }
+}
+class CompositionDemo {
+    public static void main(String[] args) {
+        Author author = new Author("James Gosling", "james@example.com");
+        Book book = new Book("Java Advanced", 750.00, author);
+        book.display();
+    }
+}
+
+// Question 5: Student Management System with table display
+class Student {
+    private String id, name;
+    private int age;
+    public Student(String id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+    public String getId() { return id; }
+    public String toString() {
+        return String.format("| %-10s | %-15s | %-5d |", id, name, age);
+    }
+}
+class StudentManagement {
+    static Scanner scanner = new Scanner(System.in);
+    static List<Student> students = new ArrayList<>();
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("1. Add Student\n2. Remove Student\n3. Search Student\n4. List All Students\n5. Exit");
+            System.out.print("Select menu: ");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1: addStudent(); break;
+                case 2: removeStudent(); break;
+                case 3: searchStudent(); break;
+                case 4: listStudents(); break;
+                case 5: return;
+                default: System.out.println("Invalid menu!");
+            }
+        }
+    }
+    public static void listStudents() {
+        System.out.println("+------------+-----------------+-------+");
+        System.out.println("| Student ID | Name            | Age   |");
+        System.out.println("+------------+-----------------+-------+");
+        students.forEach(s -> System.out.println(s));
+        System.out.println("+------------+-----------------+-------+");
+    }
+}
